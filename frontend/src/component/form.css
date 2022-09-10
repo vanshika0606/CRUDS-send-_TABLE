@@ -1,0 +1,76 @@
+.box-form{
+    background-color: rgba(0, 0, 0, 0.71);
+    position: absolute;
+    top:0px;
+    width:100%;
+    height:100vh;
+    
+}
+.form , .formm, .send-form{
+    position: absolute;
+    top:100px;
+    /* top:100px; */
+    left:30vw;
+    background: linear-gradient(to right, #4568dc, #b06ab3);
+    width:40vw;
+    border-radius: 20px;
+    padding:20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form label, .formm label , .send-form label{
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.form input , .formm input , .send-form input{
+    width: 30vw;
+    outline: none;
+    font-size: 15px;
+    padding:8px 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.submit{
+    font-weight: bold;
+    padding: 10px !important;
+    background-color: rgba(0, 0, 0, 0.656);
+    color:white;
+    cursor: pointer;
+
+}
+.submit:hover{
+    background-color: rgba(0, 0, 0, 0.478);
+    cursor: pointer;
+}
+
+.update, .send-button{
+    
+    font-weight: bold;
+    padding: 10px !important;
+    background-color: rgba(0, 0, 0, 0.776);
+    color:white;
+}
+.update:hover{
+    background-color: rgba(0, 0, 0, 0.575);
+    cursor: pointer;
+   
+
+}
+.formm{
+    background: linear-gradient(to right, #f1f2b5, #135058);
+}
+
+.send-form input{
+    margin-top: 8px;
+}
+.send-button{
+    margin-top: 30px !important;
+}
+.send-form{
+    background: linear-gradient(to right, #a1ffce, #faffd1);
+}
