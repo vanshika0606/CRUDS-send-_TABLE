@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 import './form.css'
 
@@ -19,6 +20,7 @@ const handleInput = (e)=>{
 const submit = async(e)=>{
     
     e.preventDefault();
+    
     send.push(  props.send)
     
     
@@ -38,12 +40,11 @@ const submit = async(e)=>{
    
    });
 
-   props.send.splice(0,props.send.length)
-    console.log(props.send)
-    send.splice(0, send.length)
-     console.log(send)
+ 
         props.setSendbutton(false)
+        toast.success("Sent to given mail successfully!")
     }
+
     
 
     

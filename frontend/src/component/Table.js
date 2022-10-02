@@ -1,15 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import {Link, useNavigate} from 'react-router-dom'
 import './table.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Table = (props) => {
 
-  let i=1;
+   const navigate = useNavigate()
     
     const [rows, setRows] = useState([]);
 
     const [del, setDel] = useState(0);
+    
+    const [c, setC] = useState([])
 
+
+    let a='';
+
+    const logout = async()=>{
+     let succ,msg;
+    await  fetch("http://localhost:3000/logout").then((res)=>{
+      return res.json();
+}).then(async(data)=>{
+  succ=data.success;
+  msg= data.message;
+})
+if(succ===true){
+  toast.success(msg)
+  navigate("/login")
+}else{
+  toast.error(msg)
+}
+           
+     
+        
+        
+    }
+    
     const fetchData = async()=>{
           fetch("http://localhost:3000/allrows").then((res)=>{
                 return res.json();
@@ -21,12 +49,18 @@ const Table = (props) => {
 
     useEffect(()=>{
         fetchData()
+       
       
     },[props.submitform,del,props.update])
 
     
   return (
     <div className='table-box'>
+      <div className='already-registered'>
+          
+          <button onClick={logout}>Logout</button>
+         
+        </div>
       <div className='add-send'>
         <button  className="add"  onClick={()=>{
             if(props.add===0){
@@ -35,13 +69,30 @@ const Table = (props) => {
                 props.setAdd(0)
             }
            
+            // navigate("/addrows")
             
         }}>ADD</button>
         <button className='send' onClick={()=>{
           props.setSendbutton(!props.sendbutton)
-          console.log(props.sendbutton)
+            
+          c.forEach(r=>{
+              if(r.checked==true){
+                   a+=`\u2022  name : ${rows[r.id-1].name} , email : ${rows[r.id-1].email} , hobbies : ${rows[r.id-1].hobbies} , phone no. : ${rows[r.id-1].phoneNumber}\n`
+                   
+              }
+              
+              
+             
+              
+          })
+         
+          
+          props.send.push(a)
+          console.log(props.send)
+          
         }}>SEND</button>
         </div>
+        
       <table className='table'>
   <thead>
     
@@ -58,9 +109,9 @@ const Table = (props) => {
   </thead>
 
   <tbody>
-    { rows.map( r=>{
+    { rows.map( (r,ind)=>{
        return <tr key={r._id}>
-       <td>{i++}</td>
+       <td>{ind+1}</td>
        <td>{r.name}</td>
        <td>{r.email}</td>
        <td>{r.hobbies}</td>
@@ -69,18 +120,30 @@ const Table = (props) => {
         className='checkbox'
         
          
-         onClick={ ()=>{
+         onClick={ (e)=>{
+        
          
-        props.setSend(oldArray => [...oldArray,
-            { name:r.name,
-          email:r.email,
-          phoneNumber:r.phoneNumber,
-          hobbies:r.hobbies
-         }]);
-
+           
+           
+             let m=-1;
+           c.forEach(a=>{
+            if(a.id===ind+1){
+              m=ind;
+            }
+           })
+          
+           if(m==-1){
+            c.push({checked:e.target.checked, id:ind+1})
+           }else{
+            c[ind].checked=e.target.checked
+           }
+        
+          // console.log(c)
+        
         
 
-       
+        
+           
        }
       }
         /></td>
@@ -106,6 +169,7 @@ const Table = (props) => {
     })
 
     setDel(!del)
+    toast.success("Row deleted successfully!")
 
        }}
        ></i>
@@ -121,6 +185,7 @@ const Table = (props) => {
     
  
 </table>
+
     </div>
   )
 }

@@ -1,5 +1,9 @@
 import React from 'react'
 import "./form.css"
+import { toast, ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Update = (props) => {
 
@@ -36,6 +40,7 @@ const Update = (props) => {
             })
         })
         props.setUpdate(0);
+        toast.success("Row updated successfully!")
 
     }
 

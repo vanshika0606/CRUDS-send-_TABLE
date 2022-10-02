@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './form.css';
 
 const Addform = (props) => {
 
-
+const navigate = useNavigate()
     const [table,setTable] = useState({
         name:"",
         email:"",
@@ -27,7 +30,7 @@ let value , name;
 
           const {name,email,phoneNumber, hobbies} = table;
 
-          const res = await fetch("http://localhost:3000/",{
+          const res = await fetch("http://localhost:3000/addrow",{
             method:"POST",
             headers:{
                 "Content-Type": "application/json"
@@ -41,15 +44,27 @@ let value , name;
               })
              
           })
-
-          setTable({
-            name:"",
-            email:"",
-            phoneNumber:"",
-            hobbies:""
-          })
-          props.setSubmitform(1);
-          props.setAdd(0);
+           const result = await res.json();
+          
+           if(result.success===true){
+             
+             props.setAdd(0);
+             setTable({
+              name:"",
+              email:"",
+              phoneNumber:"",
+              hobbies:""
+            })
+            props.setSubmitform(1);
+            toast.success("Row added successfully!");
+            // navigate("/allrows")
+           }else{
+            const msg = result.message;
+            toast.error(msg);
+           
+           }
+          
+           
     }
   return (
     <div className='box-form' >
@@ -78,10 +93,10 @@ let value , name;
             onChange={handleInput} required />
             <br/>
 
-
+            
             <input type="submit" className="submit" value="ADD ROW" onClick={submit}/>
         </form>
-      
+        
     </div>
   )
 }
