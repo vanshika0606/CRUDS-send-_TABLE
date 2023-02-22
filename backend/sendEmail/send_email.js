@@ -8,7 +8,7 @@ const sendEmail = async (options)=>{
         service:"gmail",
         auth:{
             user:"vanshika2000chanktia@gmail.com",
-            pass:"kflkshidntgllbkn",
+            pass:"lrvcgcbdhzruaijw",
         }
     })
 

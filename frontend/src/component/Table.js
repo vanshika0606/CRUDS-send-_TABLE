@@ -56,7 +56,7 @@ if(succ===true){
     
   return (
     <div className='table-box'>
-      <div className='already-registered'>
+      <div className='already-registered logout'>
           
           <button onClick={logout}>Logout</button>
          

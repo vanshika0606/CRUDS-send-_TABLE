@@ -28,7 +28,7 @@ const Otp = () => {
     console.log(data)
 
     if(data.success==true){
-        toast.success(data.message)
+       toast.success(data.message)
         navigate("/allrows")
     }
     else{

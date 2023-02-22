@@ -47,7 +47,7 @@ exports.generateotp = async(req,res,next)=>{
     let email = req.user.email
     
         
-        x = Math.floor((Math.random() * 10000) + 9999)
+        x = Math.floor((Math.random() * 50000) + 9999)
   
         setTimeout(()=>{
             x=0;
@@ -83,7 +83,7 @@ exports.testOtp = async(req,res,next)=>{
     
     if(otp===""){
         res.status(200).json({
-            success:true,
+            success:false,
             message:'Please enter otp'
         })
     }
@@ -93,7 +93,7 @@ exports.testOtp = async(req,res,next)=>{
     if(otp==x){
         res.status(200).json({
             success:true,
-            message:'Email verified successfully '
+            message:'Email verified successfully'
         })
     }
     
@@ -102,7 +102,7 @@ exports.testOtp = async(req,res,next)=>{
         message:'You entered wrong otp'
     })
 
-    next()
+    // next()
 }
 
 

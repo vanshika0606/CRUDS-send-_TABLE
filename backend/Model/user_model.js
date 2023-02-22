@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
 
@@ -23,6 +23,12 @@ const UserSchema = new mongoose.Schema({
         required:true,
         select:false
     },
+    table:[{
+        
+         type:mongoose.Schema.Types.ObjectId,
+         ref:"Table"
+    }],
+    
     resetPasswordToken:String,
     resetPasswordExpire:Date,
     
@@ -34,7 +40,8 @@ UserSchema.pre("save", async function(next){
         next()
     }
 
-    this.password= await bcrypt.hash(this.password,10);
+    var salt = bcrypt.genSaltSync(10)
+    this.password=  bcrypt.hashSync(this.password,salt);
 })
 
 UserSchema.methods.getJWToken= function(){
